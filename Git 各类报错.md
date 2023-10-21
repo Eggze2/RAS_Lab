@@ -60,12 +60,12 @@
 **解决办法：**
 
 1. 手动解决
-   ①git stash 先将本地修改存储起来
-   ②git pull 拉取远程
+   ①git stash 先将本地修改存储起来\
+   ②git pull 拉取远程\
    ③git stash pop 还原暂存内容
 
 2. 放弃本地修改，直接覆盖
-   ①git reset --hard
+   ①git reset --hard\
    ②git pull
 
 #### 2 报错 “fatal: unable to access ‘https://github.com/…’: OpenSSL SSL_read: Connection was reset, errno 10054”
@@ -111,6 +111,12 @@ git config --global http.sslVerify "false"
    ```bash
    git config --global --unset http.proxy
    git config --global --unset https.proxy
+   ```
+   #### 解决Failed to connect to github.com port 443: Operation timed out
+
+   ```bash
+   git config --global http.proxy http://127.0.0.1:7890
+   git config --global https.proxy https://127.0.0.1:7890
    ```
 
 #### 5 报错 “fatal: ‘origin’ does not appear to be a git repository”

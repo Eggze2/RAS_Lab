@@ -228,11 +228,3 @@ git branch -d temp
 ```
 
 > 如果该分支没有合并到主分支会报错，可以用命令强制删除`git branch -D <branch_name>`
-
-#### 解决Failed to connect to github.com port 443: Operation timed out
-
-```bash
-git config --global http.proxy http://127.0.0.1:7890
-git config --global https.proxy https://127.0.0.1:7890
-```
-11
