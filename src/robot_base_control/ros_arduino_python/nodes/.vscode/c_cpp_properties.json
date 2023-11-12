@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/adminpc/catkin_ws/devel/include/**",
+        "/home/adminpc/Workspace/bridge_test_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/adminpc/Workspace/catkin_ws/src/nav/include/**",
+        "/home/adminpc/Workspace/catkin_ws/src/straightNav/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,6 @@
+<launch>
+
+    <!-- <node pkg="map_server" type="map_server" name="map_server" args="$(find nav_demo)/map/nav.yaml"/> -->
+    <node pkg="map_server" type="map_server" name="map_server" args="/home/xyw/map.yaml"/>
+
+</launch>
