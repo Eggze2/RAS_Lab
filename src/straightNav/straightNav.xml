@@ -1,0 +1,5 @@
+<library path="lib/libstraightNav">
+	<class name="nav/straightNav" type="nav::straightNav" base_class_type="nav_core::BaseGlobalPlanner"></class>
+	<!-- <class name="nav_1/dstar" type="nav_1::dstar" base_class_type="nav_core::BaseGlobalPlanner"></class> -->
+	<description> This is nav.</description>
+</library>

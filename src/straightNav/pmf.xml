@@ -1,0 +1,5 @@
+<library path="lib/libpmf">
+	<!-- <class name="nav/straightNav" type="nav::straightNav" base_class_type="nav_core::BaseGlobalPlanner"></class> -->
+	<class name="nav/pmf" type="nav::pmf" base_class_type="nav_core::BaseGlobalPlanner"></class>
+	<description> This is pmf.</description>
+</library>
