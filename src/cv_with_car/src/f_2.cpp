@@ -10,7 +10,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/videoio.hpp>
-#include "cv_with_car/msg_card.h"
+#include "cvfinder/msg_card.h"
 #include "std_msgs/Header.h"
 
 using namespace cv;
@@ -67,9 +67,9 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "image_node");  // ros初始化，定义节点名为imageGet_node
     ros::NodeHandle nh;                      // 定义ros句柄
     image_transport::ImageTransport it(nh);  //  类似ROS句柄
-    ros::Publisher flag_pub = nh.advertise<cv_with_car::msg_card>("/flag_pub",1);
+    ros::Publisher flag_pub = nh.advertise<cvfinder::msg_card>("/flag_pub",1);
     ros::Time now = ros::Time::now();
-    cv_with_car::msg_card f;
+    cvfinder::msg_card f;
     // initialize and allocate memory to load the video stream from camera
     VideoCapture camera0(5);
     camera0.set(CAP_PROP_FRAME_WIDTH,320);

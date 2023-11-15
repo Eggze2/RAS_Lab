@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(cv_with_car)
-
+project(cvfinder)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -9,17 +8,16 @@ project(cv_with_car)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
+  geometry_msgs
   image_transport
+  message_filters
+  message_generation
   roscpp
   sensor_msgs
-  tf2
-  tf2_ros
-  tf2_geometry_msgs
-  geometry_msgs
   std_msgs
-  message_generation
-  message_filters
-  # multi_receive
+  tf2
+  tf2_geometry_msgs
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -38,8 +36,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## To declare and build messages, services or actions from within this
 ## package, follow these steps:
 ## * Let MSG_DEP_SET be the set of packages whose message types you use in
-##   your messages/services/actions (e.g.
-#  std_msgs, actionlib_msgs, )....
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
 ##   * add a build_depend tag for "message_generation"
 ##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET
@@ -81,7 +78,7 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  std_msgs #sensor_msgs
+  geometry_msgs#   sensor_msgs#   std_msgs#   tf2_geometry_msgs
 )
 
 ################################################
@@ -115,10 +112,10 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES cv_with_car
- CATKIN_DEPENDS cv_bridge image_transport roscpp sensor_msgs std_msgs message_runtime
-#  DEPENDS system_libvector<vector<Point>> contours;
-	# vector<Vec4i> hierarchy;
+#  LIBRARIES cvfinder
+CATKIN_DEPENDS cv_bridge image_transport roscpp sensor_msgs std_msgs message_runtime
+#  CATKIN_DEPENDS cv_bridge geometry_msgs image_transport message_filters message_generation roscpp sensor_msgs std_msgs tf2 tf2_geometry_msgs tf2_ros
+#  DEPENDS system_lib
 )
 
 ###########
@@ -128,13 +125,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/cv_with_car.cpp
+#   src/${PROJECT_NAME}/cvfinder.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -145,13 +142,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/cv_with_car_node.cpp)
-add_executable(follow_onething src/follow_onething.cpp)
+# add_executable(${PROJECT_NAME}_node src/cvfinder_node.cpp)
 add_executable(f_2 src/f_2.cpp)
-add_executable(car_avoid src/car_avoid.cpp)
-add_executable(follow2 src/follow2.cpp)
 add_executable(race src/race.cpp)
-
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -162,21 +155,14 @@ add_executable(race src/race.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(f_2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(race ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(follow_onething
-  ${catkin_LIBRARIES}
-)
 target_link_libraries(f_2
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(car_avoid
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(follow2
   ${catkin_LIBRARIES}
 )
 target_link_libraries(race
@@ -230,7 +216,7 @@ target_link_libraries(race
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_cv_with_car.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_cvfinder.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

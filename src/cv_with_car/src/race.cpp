@@ -11,8 +11,8 @@
 #include<time.h>
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
-#include "cv_with_car/msg_card.h"
-#include "cv_with_car/center_x.h"
+#include "cvfinder/msg_card.h"
+#include "cvfinder/center_x.h"
 #include "std_msgs/Header.h"
 #include <message_filters/sync_policies/approximate_time.h>
 #include <ctime>
@@ -21,7 +21,7 @@ using namespace message_filters;
 using namespace std;
 ros::Publisher pub;
 
-void callback(const cv_with_car::msg_cardConstPtr &f){
+void callback(const cvfinder::msg_cardConstPtr &f){
     // cout<< f->flag << endl;
     // cout<<"start"<<endl;
     geometry_msgs::Twist go;//正常情况下？
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     ros::NodeHandle nh;
     
     pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel",1);//发布
-    ros::Subscriber sub = nh.subscribe<cv_with_car::msg_card>("/flag_pub",1,callback);
+    ros::Subscriber sub = nh.subscribe<cvfinder::msg_card>("/flag_pub",1,callback);
     
     ros::spin();
     return 0;
