@@ -8,7 +8,7 @@ include "trajectory_builder.lua"
 options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
-  map_frame = "map",-- map是世界坐标系，用于发布submap
+  map_frame = "map",-- map是全局坐标系，用于发布submap
   -- 若只使用雷达进行建图，则将tracking_frame和published_frame都改为雷达坐标系laser
   -- 若使用雷达和机器人进行建图，不使用轮式里程计，
   --      则tracking_frame和published_frame都改为base_link，provide_odom_frame改为true
