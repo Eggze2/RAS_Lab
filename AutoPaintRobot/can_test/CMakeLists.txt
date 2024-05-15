@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(tank_control)   # 即type
+project(can_test)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -10,16 +8,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  can_msgs
-  geometry_msgs
   roscpp
   rospy
   std_msgs
+  serial
+  sensor_msgs
   socketcan_bridge
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED)
+# find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -57,7 +56,10 @@ find_package(Boost REQUIRED)
 #   Message1.msg
 #   Message2.msg
 # )
-
+add_message_files(
+  FILES
+  CustomControlMsg.msg
+)
 ## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
@@ -75,8 +77,12 @@ find_package(Boost REQUIRED)
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   can_msgs#   geometry_msgs#   std_msgs
+#   std_msgs
 # )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -108,18 +114,11 @@ find_package(Boost REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS
-    include
- CATKIN_DEPENDS 
-    can_msgs
-    controller_interface 
-    geometry_msgs 
-    socketcan_bridge
-    std_msgs
-    roscpp
-    rospy
-  # LIBRARIES ${PROJECT_NAME}
-  # DEPENDS Boost
+#  INCLUDE_DIRS include
+#  LIBRARIES can_test
+ CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+#  DEPENDS system_lib
+  
 )
 
 ###########
@@ -129,16 +128,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include ${catkin_INCLUDE_DIRS}
-  # include ${Boost_INCLUDE_DIRS}
+# include
+  ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-add_library(${PROJECT_NAME}_lib
-  src/datatype_converter.cpp
-  src/my_robot_hardware.cpp
-  src/can_interface_manager.cpp
-)
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/can_test.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -148,10 +145,13 @@ add_library(${PROJECT_NAME}_lib
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node
-  src/my_robot_controller.cpp   
-)
-
+# add_executable(${PROJECT_NAME}_node src/can_test_node.cpp)
+add_executable(can_test src/can_test.cpp)
+add_executable(joy_to_cmd_vel_node src/joy_to_cmd_vel_node.cpp)
+add_executable(cmd_vel_to_can_node src/cmd_vel_to_can_node.cpp)
+add_executable(joy_to_serial_node src/joy_to_serial_node.cpp)
+add_executable(joy_to_message_node src/joy_to_message_node.cpp)
+add_executable(message_to_serial_node src/message_to_serial_node.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -160,15 +160,30 @@ add_executable(${PROJECT_NAME}_node
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(
-  tank_control_node
-  ${PROJECT_NAME}_lib
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+target_link_libraries(can_test
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(joy_to_cmd_vel_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(cmd_vel_to_can_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(joy_to_serial_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(joy_to_message_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(message_to_serial_node
+  ${catkin_LIBRARIES}
+)
 #############
 ## Install ##
 #############
@@ -216,7 +231,7 @@ target_link_libraries(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot_control.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_can_test.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
