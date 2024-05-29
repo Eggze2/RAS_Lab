@@ -1,0 +1,7 @@
+numpy
+opencv-python
+rospy
+cv_bridge
+message_filters
+rospkg
+ultralytics
