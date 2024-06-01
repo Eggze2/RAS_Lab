@@ -1,0 +1,8 @@
+prefix=/home/lyb/AutoPaintRobot/src/can_test/build/devel
+
+Name: can_test
+Description: Description of can_test
+Version: 0.0.0
+Cflags: -I/home/lyb/AutoPaintRobot/src/can_test/build/devel/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs message_runtime
