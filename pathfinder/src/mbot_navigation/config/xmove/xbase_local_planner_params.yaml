@@ -1,0 +1,44 @@
+controller_frequency: 5.0
+recovery_behavior_enabled: false
+clearing_rotation_allowed: false
+
+TrajectoryPlannerROS:
+   max_vel_x: 0.6
+   min_vel_x: 0.1
+   max_vel_y: 0.0  # zero for a differential drive robot
+   min_vel_y: 0.0
+   max_vel_theta: 0.3
+   min_vel_theta: -0.3
+   min_in_place_vel_theta: 0.3
+   escape_vel: -0.1
+   acc_lim_x: 1.5 # X 加速限制
+   acc_lim_y: 0.0 # zero for a differential drive robot
+   acc_lim_theta: 1.2
+
+   holonomic_robot: false
+
+   # Goal Tolerance Parameters，目标公差
+   yaw_goal_tolerance: 0.05 # about 6 degrees
+   xy_goal_tolerance: 0.1  # 10 cm
+   latch_xy_goal_tolerance: false
+   pdist_scale: 12.0
+   gdist_scale: 0.8
+   meter_scoring: true
+
+   heading_lookahead: 0.325
+   heading_scoring: false
+   heading_scoring_timestep: 0.8
+   occdist_scale: 0.1
+   oscillation_reset_dist: 0.05
+   publish_cost_grid_pc: false
+   prune_plan: true
+
+   # Forward Simulation Parameters，前进模拟参数
+   sim_time: 3.0   # 模拟轨迹的时间，默认1.0s
+   sim_granularity: 0.025  # 给定轨迹的步长，默认0.025米
+   angular_sim_granularity: 0.05 # 给定角度轨迹的弧长，默认0.025弧度
+   vx_samples: 6  # x方向速度的样本数，默认为8
+   vy_samples: 0 # y方向速度的样本数，两轮差速为0，zero for a differential drive robot
+   vtheta_samples: 15   # 角速度的样本数，默认为20
+   dwa: true   # 是否使用动态窗口方法（DWA），或者是否使用轨迹。默认为true
+   simple_attractor: false

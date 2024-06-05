@@ -1,0 +1,28 @@
+<launch>
+  <param name="/use_sim_time" value="false" />
+
+<!--configuration_directory是你的.lua配置文件的路径
+    configuration_basename是你的.lua配置文件的名字
+    load_state_filename是你保存好的地图数据的路径和名字-->
+<!-- 下面这个节点的功能是从你的.lua配置文件中读取参数，开启SLAM -->
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory $(find mbot_navigation)/config
+          -configuration_basename lidar.lua
+          -load_state_filename /home/x/pathfinder/src/mbot_navigation/maps/c-map06051835.pbstream"
+      output="screen">
+    <remap from="scan" to="scan" />
+  </node>
+
+<!-- 下面这个节点的功能是更新栅格地图并发布 -->
+  <!-- <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" -->
+      <!-- type="cartographer_occupancy_grid_node" args="-resolution 0.05" /--> 
+<!--下面的指令调用 map_server发布地图数据，而不使用cartographer_occupancy_grid_node这个节点
+      原因是为了避免在定位的过程中将获得的雷达数据在已经建好的地图上进行更新，使地图发生漂移，定位效果变差
+      注意修改文件名字和路径-->
+      <node name="map_server" pkg="map_server" type="map_server" args="/home/x/pathfinder/src/mbot_navigation/maps/c-map06051835.yaml"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find mbot_navigation)/rviz/nav.rviz" />
+
+</launch>

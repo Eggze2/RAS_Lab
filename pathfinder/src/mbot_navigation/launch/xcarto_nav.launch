@@ -1,0 +1,12 @@
+<launch>
+	<!-- <remap from="/cmd_vel" to="/cmd_vel_111" /> -->
+    <!-- <node pkg="mobt_navigation" type="static_transform_publisher" name="scan_to_baselink" args="2 0 0 0 0 0 0  /base_link /laser 40" output="screen" /> -->
+    <!-- <node pkg="tf2" type="static_transform_publisher" name="scan_to_baselink" args="2 0 0 0 0 0 0  base_link scan  output="screen"" /> -->
+   <!-- 运行catographer的定位 -->
+    <include file="src/mbot_navigation/launch/x_backpack_2d_localization.launch"/>
+    <!-- 运行move_base节点 -->
+    <include file="$(find mbot_navigation)/launch/xmove_base.launch"/>
+
+   
+
+</launch>

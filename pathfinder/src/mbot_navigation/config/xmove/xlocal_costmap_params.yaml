@@ -1,0 +1,11 @@
+local_costmap:
+   global_frame: map 
+   robot_base_frame: base_link
+   update_frequency: 10.0 # 局部代价地图的更新频率（内部计算使用）；
+   publish_frequency: 10.0 # 局部代价地图的发布频率 （Rviz显示使用）
+   static_map: false # 是否为静态地图属性，代价地图位动态；
+   rolling_window: true # 是否为滚动窗口（随着机器人移动而滑动）；
+   width: 20.0 # 局部地图宽度；
+   height: 20.0 # 局部地图高度（长度）；
+   resolution: 0.01 #局部地图的分辨率
+   transform_tolerance: 1.0 # 订阅tf时的时间差冗余量；
