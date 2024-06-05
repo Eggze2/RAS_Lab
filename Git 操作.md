@@ -202,7 +202,7 @@ git remote -v
 - 从远程获取最新版本到本地新建的分支
 
 ```bash
-git fetch origin master:temp
+git fetch origin main:temp
 ```
 
 - 比较区别
