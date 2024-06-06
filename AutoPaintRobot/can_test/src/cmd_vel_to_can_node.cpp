@@ -504,8 +504,8 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, ros::Publisher& p
     prev_v = v;
     prev_omega = omega;
     
-    double v_l = v - omega * wheel_distance / 2; // 计算左轮速度
-    double v_r = -(v + omega * wheel_distance / 2); // 计算右轮速度
+    double v_l = -(v - omega * wheel_distance / 2); // 计算左轮速度
+    double v_r = v + omega * wheel_distance / 2; // 计算右轮速度
 
     int duty_cycle_left = static_cast<int>((v_l / max_speed_value) * 1000); // 左轮速度占空比
     int duty_cycle_right = static_cast<int>((v_r / max_speed_value) * 1000); // 右轮速度占空比

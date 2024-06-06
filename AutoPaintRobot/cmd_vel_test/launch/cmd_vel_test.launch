@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="cmd_vel_test" type="cmd_vel_test.cpp" name="cmd_vel_test" output="screen" />
+</launch>
