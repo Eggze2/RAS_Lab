@@ -449,8 +449,8 @@ int can_id_left_wheel; // 左轮电机的CAN ID
 int can_id_right_wheel; // 右轮电机的CAN ID
 int loop_rate; // 节点循环频率
 ros::Publisher can_pub; // 发布者，用于发送CAN消息
-const double MAX_ANGULAR_VELOCITY = 1.0; // 最大角速度值，单位弧度/秒
-const double MAX_LINEAR_SPEED = 1.0; // 最大线速度值，单位米/秒
+const double MAX_ANGULAR_VELOCITY = 0.4; // 最大角速度值，单位弧度/秒
+const double MAX_LINEAR_SPEED = 0.2; // 最大线速度值，单位米/秒
 
 // 速度数据的联合体，用于方便地转换速度值与字节流
 union SpeedData {
@@ -505,7 +505,7 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, ros::Publisher& p
     prev_omega = omega;
     
     double v_l = v - omega * wheel_distance / 2; // 计算左轮速度
-    double v_r = v + omega * wheel_distance / 2; // 计算右轮速度
+    double v_r = -(v + omega * wheel_distance / 2); // 计算右轮速度
 
     int duty_cycle_left = static_cast<int>((v_l / max_speed_value) * 1000); // 左轮速度占空比
     int duty_cycle_right = static_cast<int>((v_r / max_speed_value) * 1000); // 右轮速度占空比
@@ -537,7 +537,7 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh; // 节点句柄
 
     // 从参数服务器获取参数
-    nh.param("wheel_distance", wheel_distance, 1.0);
+    nh.param("wheel_distance", wheel_distance, 0.75);
     nh.param("max_speed_value", max_speed_value, 1.0);
     nh.param("can_frame_dlc", can_frame_dlc, 8);
     nh.param("can_id_left_wheel", can_id_left_wheel, 0x601);

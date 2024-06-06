@@ -10,7 +10,7 @@
 // 常量定义
 double MAX_LINEAR_SPEED = 1.0; // 最大线速度，单位：米/秒
 double MIN_SPEED_THRESHOLD = 0.1; // 最小速度阈值，低于此速度的指令将被忽略
-double WHEEL_DISTANCE = 0.8; // 轮间距，用于计算转向时的角速度
+double WHEEL_DISTANCE = 0.75; // 轮间距，用于计算转向时的角速度
 double JOYSTICK_DEADZONE = 0.05; // 手柄的死区值，避免微小的操作误差导致的机器人移动
 double MIN_ANGULAR_VELOCITY = 0.1; // 最小角速度，单位：弧度/秒
 double scale_factor = 0.5; // 缩放因子，用于调整手柄输入的影响程度
@@ -48,8 +48,8 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& msg) {
     MIN_ANGULAR_VELOCITY = std::max(0.2, MIN_ANGULAR_VELOCITY);
 
     // 计算最终的线速度和角速度
-    double linear_vel = msg->axes[3] * MIN_ANGULAR_VELOCITY;//MIN_ANGULAR_VELOCITY
-    double angular_vel = -msg->axes[1] * MAX_LINEAR_SPEED;//MAX_LINEAR_SPEED
+    double linear_vel = msg->axes[1] * MIN_ANGULAR_VELOCITY;//MIN_ANGULAR_VELOCITY
+    double angular_vel = -msg->axes[3] * MAX_LINEAR_SPEED;//MAX_LINEAR_SPEED
 
     // 设置速度指令
     cmd_vel.linear.x = linear_vel;
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     // 从参数服务器获取参数
     nh.param("/joy_to_cmd_vel_node/max_linear_speed", MAX_LINEAR_SPEED, 1.0);
     nh.param("/joy_to_cmd_vel_node/min_speed_threshold", MIN_SPEED_THRESHOLD, 0.1);
-    nh.param("/joy_to_cmd_vel_node/wheel_distance", WHEEL_DISTANCE, 0.8);
+    nh.param("/joy_to_cmd_vel_node/wheel_distance", WHEEL_DISTANCE, 0.75);
 
     // 初始化发布者和订阅者
     cmd_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1000);

@@ -21,14 +21,14 @@
 
     <!-- 将操纵杆输入转换为 cmd_vel 指令 -->
     <node pkg="can_test" name="joy_to_cmd_vel_node" type="joy_to_cmd_vel_node" output="screen">
-        <param name="max_linear_speed" value="1.0" />
+        <param name="max_linear_speed" value="0.4" />
         <param name="min_speed_threshold" value="0.1" />
-        <param name="wheel_distance" value="0.5" />
+        <param name="wheel_distance" value="0.75" />
     </node>
 
     <!-- 将 cmd_vel 指令转换为 CAN 消息 -->
     <node pkg="can_test" name="cmd_vel_to_can_node" type="cmd_vel_to_can_node" output="screen">
-        <param name="wheel_distance" value="0.5" />
+        <param name="wheel_distance" value="0.75" />
         <param name="max_speed_value" value="1.0" />
         <param name="can_frame_dlc" value="8" />
         <param name="can_id_left_wheel" value="0x601" />
