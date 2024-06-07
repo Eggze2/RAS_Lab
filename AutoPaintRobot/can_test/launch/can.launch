@@ -21,7 +21,7 @@
 
     <!-- 将操纵杆输入转换为 cmd_vel 指令 -->
         <node pkg="can_test" name="joy_to_cmd_vel_node" type="joy_to_cmd_vel_node" output="screen">
-            <param name="max_linear_speed" value="0.4" />
+            <param name="max_linear_speed" value="0.1" />
             <param name="min_speed_threshold" value="0.1" />
             <param name="wheel_distance" value="0.75" />
         </node>

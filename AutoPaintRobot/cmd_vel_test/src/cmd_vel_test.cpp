@@ -18,8 +18,8 @@ int main(int argc, char** argv) {
     //z正值：后退
     //x正值：逆时针
     //x负：顺时针
-    msg.linear.x = -0.2;
-    msg.angular.z = 0;
+    msg.linear.x = 0.2;
+    msg.angular.z = 0.3;
     ROS_INFO("Sending velocity command: linear.x=%.2f, angular.z=%.2f", 
               msg.linear.x, msg.angular.z);
 

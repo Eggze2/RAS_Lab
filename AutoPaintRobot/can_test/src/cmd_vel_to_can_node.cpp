@@ -493,7 +493,7 @@ void initMotors(ros::Publisher& pub) {
 void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, ros::Publisher& pub) {
     static double prev_v = 0.0; // 上次的线速度
     static double prev_omega = 0.0; // 上次的角速度
-    double v = msg->linear.x; // 当前线速度
+    double v = -msg->linear.x; // 当前线速度
     double omega = msg->angular.z; // 当前角速度
     
     // 检查速度是否有变化

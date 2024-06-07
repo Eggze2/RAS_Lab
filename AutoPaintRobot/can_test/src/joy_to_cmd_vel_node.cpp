@@ -8,7 +8,7 @@
 #include <cmath> // 引入数学库，用于执行数学运算
 
 // 常量定义
-double MAX_LINEAR_SPEED = 1.0; // 最大线速度，单位：米/秒
+double MAX_LINEAR_SPEED = 0.1; // 最大线速度，单位：米/秒
 double MIN_SPEED_THRESHOLD = 0.1; // 最小速度阈值，低于此速度的指令将被忽略
 double WHEEL_DISTANCE = 0.75; // 轮间距，用于计算转向时的角速度
 double JOYSTICK_DEADZONE = 0.05; // 手柄的死区值，避免微小的操作误差导致的机器人移动
@@ -34,7 +34,7 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& msg) {
         ROS_INFO("Max linear speed decreased to: %f", MAX_LINEAR_SPEED);
     }
     // 确保线速度不低于0.2米/秒
-    MAX_LINEAR_SPEED = std::max(0.2, MAX_LINEAR_SPEED);
+    MAX_LINEAR_SPEED = std::max(0.1, MAX_LINEAR_SPEED);
 
     if (msg->buttons[5] == 1) { // R1按键增加角速度
         MIN_ANGULAR_VELOCITY += 0.1;
@@ -45,10 +45,10 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& msg) {
         ROS_INFO("Min angular velocity decreased to: %f", MIN_ANGULAR_VELOCITY);
     }
     // 确保角速度不低于0.2弧度/秒
-    MIN_ANGULAR_VELOCITY = std::max(0.2, MIN_ANGULAR_VELOCITY);
+    MIN_ANGULAR_VELOCITY = std::max(0.1, MIN_ANGULAR_VELOCITY);
 
     // 计算最终的线速度和角速度
-    double linear_vel = -msg->axes[1] * MAX_LINEAR_SPEED;//MAX_LINEAR_SPEED
+    double linear_vel = msg->axes[1] * MAX_LINEAR_SPEED;//MAX_LINEAR_SPEED
     double angular_vel = msg->axes[3] * MIN_ANGULAR_VELOCITY;//MIN_ANGULAR_VELOCITY
 
     // 设置速度指令
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh; // 节点句柄
 
     // 从参数服务器获取参数
-    nh.param("/joy_to_cmd_vel_node/max_linear_speed", MAX_LINEAR_SPEED, 1.0);
+    nh.param("/joy_to_cmd_vel_node/max_linear_speed", MAX_LINEAR_SPEED, 0.1);
     nh.param("/joy_to_cmd_vel_node/min_speed_threshold", MIN_SPEED_THRESHOLD, 0.1);
     nh.param("/joy_to_cmd_vel_node/wheel_distance", WHEEL_DISTANCE, 0.75);
 
