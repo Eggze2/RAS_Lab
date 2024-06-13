@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <node pkg="paint_control" type="paint_control.py" name="paint_control" output="screen" />
+</launch>
