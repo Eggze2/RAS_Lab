@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(tcp_control)
+project(serial_test)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++17)
@@ -64,11 +64,7 @@ add_message_files(
 )
 ## Generate services in the 'srv' folder
 # add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
-
+#   FILEScan_test
 ## Generate actions in the 'action' folder
 # add_action_files(
 #   FILES
@@ -138,19 +134,24 @@ include_directories(
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/can_test.cpp
 # )
-add_library(tcp_connection
-    src/tcp_connection.cpp
-    include/tcp_connection.h
-)
+# add_library(tcp_connection
+#     src/tcp_connection.cpp
+#     include/tcp_connection.h
+# )
 
-add_library(speed_command_processor
-    src/speed_command_processor.cpp
-    include/speed_command_processor.h
-)
+# add_library(speed_command_processor
+#     src/speed_command_processor.cpp
+#     include/speed_command_processor.h
+# )
 
 add_library(joy_handler
   src/joy_handler.cpp
   include/joy_handler.h  
+)
+
+add_library(serial_handler
+  src/serial_handler.cpp
+  include/serial_handler.h
 )
 
 # target_link_libraries(MotorController PUBLIC CanClient)
@@ -171,13 +172,13 @@ add_library(joy_handler
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/can_test_node.cpp)
-add_executable(tcp_control src/can_test.cpp)
-add_executable(joy_to_cmd_vel_node src/joy_to_cmd_vel_node.cpp)
+# add_executable(serial_test src/can_test.cpp)
+add_executable(joy_to_cmd_vel_node_0 src/joy_to_cmd_vel_node.cpp)
 # add_executable(cmd_vel_to_can_node src/cmd_vel_to_can_node.cpp)
-# add_executable(joy_to_serial_node src/joy_to_serial_node.cpp)
+add_executable(joy_to_serial_node_0 src/joy_to_serial_node.cpp)
 # add_executable(joy_to_message_node src/joy_to_message_node.cpp)
 # add_executable(message_to_serial_node src/message_to_serial_node.cpp)
-add_executable(cmd_vel_to_tcp_node src/cmd_vel_to_tcp_node.cpp)
+# add_executable(cmd_vel_to_tcp_node src/cmd_vel_to_tcp_node.cpp)
 # add_executable(cmd_vel_to_tcp_node src/main.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -193,31 +194,33 @@ add_executable(cmd_vel_to_tcp_node src/cmd_vel_to_tcp_node.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(tcp_control
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(joy_to_cmd_vel_node
+# target_link_libraries(can_test
+#   ${catkin_LIBRARIES}
+# )
+target_link_libraries(joy_to_cmd_vel_node_0
   ${catkin_LIBRARIES}
   joy_handler
 )
 # target_link_libraries(cmd_vel_to_can_node
 #   ${catkin_LIBRARIES}
 # )
-# target_link_libraries(joy_to_serial_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(joy_to_serial_node_0
+  ${catkin_LIBRARIES}
+  joy_handler
+  serial_handler
+)
 # target_link_libraries(joy_to_message_node
 #   ${catkin_LIBRARIES}
 # )
 # target_link_libraries(message_to_serial_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(cmd_vel_to_tcp_node
-  PUBLIC
-    ${catkin_LIBRARIES}
-    tcp_connection
-    speed_command_processor
-)
+# target_link_libraries(cmd_vel_to_tcp_node
+#   PUBLIC
+#     ${catkin_LIBRARIES}
+#     tcp_connection
+#     speed_command_processor
+# )
 #############
 ## Install ##
 #############
@@ -231,11 +234,11 @@ target_link_libraries(cmd_vel_to_tcp_node
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-catkin_install_python(PROGRAMS
-  scripts/joy_to_pcan_node.py
-  scripts/pcan_cybergear.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+# catkin_install_python(PROGRAMS
+#   scripts/joy_to_pcan_node.py
+#   scripts/pcan_cybergear.py
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
