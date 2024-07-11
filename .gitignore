@@ -1,3 +1,103 @@
-**/.vscode/
-**/devel/
-**/build/
+# General files to ignore
+*.log
+*.tmp
+*.swp
+.DS_Store
+*.bak
+*.backup
+*.old
+*.orig
+
+# Compiled object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Executables
+*.exe
+*.out
+*.app
+
+# C++ specific
+*.d
+*.gcno
+*.gcda
+*.gcov
+*.tbd
+*.dSYM/
+*.pdb
+
+# Generated files
+*.idb
+*.ilk
+*.pdb
+*.ipch
+*.aps
+*.ncb
+*.sdf
+*.opendb
+*.vcxproj*
+*.vcproj*
+
+# Build directories
+build/
+cmake-build-*/
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+
+# Python specific
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.manifest
+*.spec
+
+# ROS specific
+log/
+logs/
+*.bag
+*.active
+*.orig.active
+devel/
+install/
+build_isolated/
+devel_isolated/
+
+# VS Code specific
+.vscode/
+*.code-workspace
+.vscode-test/
+
+# VS Code extensions
+.vscode-server/
+.vscode-server-insiders/
+.vscode-remote/
+.vscode-test/
+.history/
