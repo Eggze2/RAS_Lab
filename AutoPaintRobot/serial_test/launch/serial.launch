@@ -14,17 +14,17 @@
     </node> -->
 
     <!-- 操纵杆输入节点 -->
-    <!-- <node name="joy_node" pkg="joy" type="joy_node" output="screen">
-        <param name="publish_rate" type="double" value="200"/>
-    </node> -->
+    <node name="joy_node" pkg="joy" type="joy_node" output="screen">
+        <param name="publish_rate" type="double" value="200"/> <!-- 设置消息发布频率为50Hz -->
+    </node>
 
 
     <!-- 将操纵杆输入转换为 cmd_vel 指令 -->
-    <!-- <node pkg="can_test" name="joy_to_cmd_vel_node" type="joy_to_cmd_vel_node" output="screen">
+    <node pkg="serial_test" name="joy_to_cmd_vel_node" type="joy_to_cmd_vel_node_0" output="screen">
         <param name="max_linear_speed" value="0.1" />
         <param name="min_speed_threshold" value="0.1" />
         <param name="wheel_distance" value="0.75" />
-    </node> -->
+    </node>
 
     <!-- 将 cmd_vel 指令转换为 CAN 消息 -->
     <!-- <node pkg="can_test" name="cmd_vel_to_can_node" type="cmd_vel_to_can_node" output="screen">
@@ -37,7 +37,7 @@
     </node> -->
 
     <!-- 将 cmd_vel 指令转换为 TCP 消息 -->
-    <node pkg="tcp_control" name="cmd_vel_to_tcp_node" type="cmd_vel_to_tcp_node" output="screen">
+    <!-- <node pkg="can_test" name="cmd_vel_to_tcp_node" type="cmd_vel_to_tcp_node" output="screen">
         <param name="wheel_distance" value="0.75" />
         <param name="max_speed_value" value="1.0" />
         <param name="can_frame_dlc" value="8" />
@@ -46,8 +46,9 @@
         <param name="loop_rate" value="200" />
         <param name="server_ip" value="10.0.0.10" />
         <param name="server_port" value="7000" />
-    </node>
+    </node> -->
     <!-- 启动 joy_control_node 节点 -->
+    <node pkg="serial_test" name="joy_to_serial_node" type="joy_to_serial_node_0" output="screen"/>
     <!-- <node pkg="can_test" name="joy_to_serial_node" type="joy_to_serial_node" output="screen"/> -->
     <!-- <node pkg="can_test" name="joy_to_message_node" type="joy_to_message_node" output="screen"/> -->
     <!-- <node pkg="can_test" name="message_to_serial_node" type="message_to_serial_node" output="screen"/> -->
