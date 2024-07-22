@@ -9,9 +9,7 @@
 // ROS LIB
 #include <ros/ros.h>
 #include <std_msgs/String.h>
-// my LIB
-#include <servo_control.h>
-#include </home/x/pathfinder/devel/include/servo_control/servo_write.h>
+#include <servo_control/servo_write.h>
 
 // 数字舵机类
 class servo {
