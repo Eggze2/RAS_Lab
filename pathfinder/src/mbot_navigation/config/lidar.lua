@@ -20,7 +20,7 @@ options = {
   -- 如果published_frame此时为base_link，理论上tf关系为map->base_link
   -- 但是由于机器人运行时发布的tf关系为odom->base_link(比如P3)，根据tf的规则一个节点只能有一个父节点，最终会导致报错。
   -- 解决方法就是将published_frame设置为odom.
-  tracking_frame = "base_link",--SLAM算法要跟踪和校准的坐标系，如果有imu就应该设置为imu_link
+  tracking_frame = "base_link", --SLAM算法要跟踪和校准的坐标系，如果有imu就应该设置为imu_link
   published_frame = "odom", --一个用来发布姿态的子级坐标系，主要用来校正tracking_frame；
   odom_frame = "odom",  --仅当provide_odom_frame=true时可以使用，位置关系是map_frame->odom_frame->published_frame，被用来发布局部的slam激光里程计结果，不用于回环检测
   provide_odom_frame = false,

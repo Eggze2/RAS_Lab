@@ -43,9 +43,9 @@ void plot_marker(move_base_msgs::MoveBaseGoal &goal1)
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "send_goal_onegoal");
-    ros::NodeHandle nh123;//创建一个句柄
-    MoveBaseClient ac("move_base", true);//创建movebase的一个动作的订阅者
-    ros::Publisher pub_ = nh123.advertise<std_msgs::Int16>("/goal_flag", 1);//创建一个发布者告诉导航已到达目标点
+    ros::NodeHandle nh123;      // 创建一个句柄
+    MoveBaseClient ac("move_base", true);       // 创建movebase的一个动作的订阅者
+    ros::Publisher pub_ = nh123.advertise<std_msgs::Int16>("/goal_flag", 1);        // 创建一个发布者告诉导航已到达目标点
     marker_pub_ = nh123.advertise<visualization_msgs::Marker>("/visualization_marker", 1);
     std_msgs::Int16 Int16_flag;
 
@@ -58,23 +58,10 @@ int main(int argc, char **argv)
     move_base_msgs::MoveBaseGoal goal[4];
 
     // 待发送的 目标点 在 map 坐标系下的坐标位置
-    // 左
-    goal[0].target_pose.pose.position.x = 3.786541281847143;
-    goal[0].target_pose.pose.position.y = 0.4139120219479551;
-    goal[0].target_pose.pose.orientation.z = 0.7013865848187414;
-    goal[0].target_pose.pose.orientation.w = 0.7127810734273903;
-
-    //     中
-    // goal[0].target_pose.pose.position.x = 9.542451390468182;
-    // goal[0].target_pose.pose.position.y = 0.7223462791828574;
-    // goal[0].target_pose.pose.orientation.z = 0.7913752221477446;
-    // goal[0].target_pose.pose.orientation.w = 0.6113307269969407;
-
-    //          右
-    // goal[0].target_pose.pose.position.x = 9.215377807617188;
-    // goal[0].target_pose.pose.position.y = -0.8106219172477722;
-    // goal[0].target_pose.pose.orientation.z = -0.18787541637705749;
-    // goal[0].target_pose.pose.orientation.w = 0.9821928669671488;
+    goal[0].target_pose.pose.position.x = -8.111810947800612;
+    goal[0].target_pose.pose.position.y = -3.9073054910586515;
+    goal[0].target_pose.pose.orientation.z = 0.002352551646704539;
+    goal[0].target_pose.pose.orientation.w = -0.999997232746546;
 
     ROS_INFO(" Init success!!! ");
 
@@ -88,24 +75,9 @@ int main(int argc, char **argv)
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
         ROS_INFO("success to final goal!");
-        system("rosrun cvfinder f_2");
-        // cout << "发送给红圈检测flag" << endl;
-        // Int16_flag.data = 1;
-        // goal_number -- ;
-        // pub_.publish(Int16_flag);
-        // ros::Duration(0.4).sleep();
-        // pub_.publish(Int16_flag);
-        // ros::Duration(0.4).sleep();
-        // pub_.publish(Int16_flag);
-        // ros::Duration(0.4).sleep();
-        // pub_.publish(Int16_flag);
-        // ros::Duration(0.4).sleep();
-        // pub_.publish(Int16_flag);
-    }
-    else
+    } else
     {
         ROS_WARN("The final Goal Planning Failed for some reason");//调试信息，未到达目标点
     }
-
     return 0;
 }

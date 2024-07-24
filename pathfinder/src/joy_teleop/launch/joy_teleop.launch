@@ -1,0 +1,18 @@
+<launch>
+    <!-- Launch the joy node -->
+    <node name="joy_node" pkg="joy" type="joy_node" output="screen">
+        <param name="dev" value="/dev/input/js0" /> <!-- Adjust this to your joystick device -->
+    </node>
+
+    <!-- Launch the joy_teleop node -->
+    <node name="joy_teleop" pkg="joy_teleop" type="joy_teleop.py" output="screen">
+        <param name="linear_axis" value="1" />
+        <param name="angular_axis" value="3" />
+        <param name="linear_scale" value="0.3" />
+        <param name="angular_scale" value="1.0" />
+        <param name="linear_increase_btn" value="4" />
+        <param name="linear_decrease_axis" value="2" />
+        <param name="angular_increase_btn" value="5" />
+        <param name="angular_decrease_axis" value="5" />
+    </node>
+</launch>

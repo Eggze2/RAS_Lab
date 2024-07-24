@@ -9,7 +9,7 @@
       type="cartographer_node" args="
           -configuration_directory $(find mbot_navigation)/config
           -configuration_basename lidar.lua
-          -load_state_filename /home/x/pathfinder/src/mbot_navigation/maps/c-map06051835.pbstream"
+          -load_state_filename $(find mbot_navigation)/maps/c-map112201.pbstream"
       output="screen">
     <remap from="scan" to="scan" />
   </node>
@@ -20,7 +20,8 @@
 <!--下面的指令调用 map_server发布地图数据，而不使用cartographer_occupancy_grid_node这个节点
       原因是为了避免在定位的过程中将获得的雷达数据在已经建好的地图上进行更新，使地图发生漂移，定位效果变差
       注意修改文件名字和路径-->
-      <node name="map_server" pkg="map_server" type="map_server" args="/home/x/pathfinder/src/mbot_navigation/maps/c-map06051835.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" 
+        args="$(find mbot_navigation)/maps/c-map112201.yaml"/>
 
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find mbot_navigation)/rviz/nav.rviz" />
